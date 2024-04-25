@@ -5,16 +5,30 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.anjoismysign</groupId>
-  <artifactId>bloblibitemStack_1_20_5</artifactId>
+  <artifactId>blis</artifactId>
   <version>1.0</version>
   <packaging>jar</packaging>
-
-  <name>BlobLibItemStack_1_20_5</name>
+  <name>blis</name>
 
   <properties>
     <java.version>16</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+    <scm>
+        <connection>scm:git:git@github.com:anjoismysign/blis.git</connection>
+        <developerConnection>scm:git:git@github.com:anjoismysign/blis.git</developerConnection>
+        <url>https://github.com/anjoismysign/blis</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub anjoismysign Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/anjoismysign/blis</url>
+        </repository>
+    </distributionManagement>
 
   <build>
     <plugins>

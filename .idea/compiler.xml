@@ -6,7 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="BlobLib_1_20_5" />
+        <module name="blis" />
+        <module name="BLIS" />
       </profile>
     </annotationProcessing>
   </component>
