@@ -1,0 +1,4 @@
+name: BlobLib_1_20_5
+version: '${project.version}'
+main: me.anjoismysign.BlobLib_1_20_5
+api-version: '1.20'
