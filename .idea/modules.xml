@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BLIS.iml" filepath="$PROJECT_DIR$/BLIS.iml" />
       <module fileurl="file://$PROJECT_DIR$/blis.iml" filepath="$PROJECT_DIR$/blis.iml" />
     </modules>
   </component>
