@@ -81,7 +81,7 @@ public class ItemStackReader {
         }
         if (section.isString("ItemName")){
             String itemName = section.getString("ItemName");
-            builder = builder.itemName(itemName);
+            builder = builder.itemName(TextColor.PARSE(itemName));
         }
         if (section.isBoolean("HideToolTip")){
             boolean hideToolTip = section.getBoolean("HideToolTip");
