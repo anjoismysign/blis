@@ -12,6 +12,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemRarity;
 import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.inventory.meta.trim.TrimMaterial;
@@ -170,13 +171,6 @@ public class ItemStackReader {
         if (section.isInt("CustomModelData")) {
             builder = builder.customModelData(section.getInt("CustomModelData"));
         }
-        boolean showAll = section.getBoolean("ShowAllItemFlags", false);
-        if (showAll)
-            builder = builder.showAll();
-        if (section.isList("ItemFlags")) {
-            List<String> flagNames = section.getStringList("ItemFlags");
-            builder = builder.deserializeAndFlag(flagNames);
-        }
         if (section.isConfigurationSection("Attributes")) {
             ConfigurationSection attributes = section.getConfigurationSection("Attributes");
             Uber<ItemStackBuilder> uber = Uber.drive(builder);
@@ -191,13 +185,31 @@ public class ItemStackReader {
                     double amount = attributeSection.getDouble("Amount");
                     if (!attributeSection.isString("Operation"))
                         throw new ConfigurationFieldException("Attribute '" + key + "' is missing 'Operation' field");
+                    EquipmentSlot equipmentSlot;
+                    String readEquipmentSlot = attributeSection.getString("EquipmentSlot");
+                    if (readEquipmentSlot != null){
+                        try {
+                            equipmentSlot = EquipmentSlot.valueOf(readEquipmentSlot);
+                        } catch (IllegalArgumentException exception){
+                            throw new ConfigurationFieldException("EquipmentSlot '"+readEquipmentSlot+"' is not valid");
+                        }
+                    } else
+                        equipmentSlot = null;
                     AttributeModifier.Operation operation = AttributeModifier.Operation.valueOf(attributeSection.getString("Operation"));
-                    uber.talk(uber.thanks().attribute(attribute, amount, operation));
-                } catch (IllegalArgumentException e) {
+                    uber.talk(uber.thanks().attribute(attribute, amount, operation, equipmentSlot));
+                } catch (IllegalArgumentException exception) {
                     throw new ConfigurationFieldException("Attribute '" + key + "' has an invalid Operation");
                 }
             });
             builder = uber.thanks();
+        }
+        builder.hideAll();
+        boolean showAll = section.getBoolean("ShowAllItemFlags", false);
+        if (showAll)
+            builder = builder.showAll();
+        if (section.isList("ItemFlags")) {
+            List<String> flagNames = section.getStringList("ItemFlags");
+            builder = builder.deserializeAndFlag(flagNames);
         }
         return builder;
     }
